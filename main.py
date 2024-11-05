@@ -1,3 +1,6 @@
+def load_instance(input_file_name: str) -> None:
+    pass
+
 def main():
     pass
 

@@ -17,7 +17,7 @@ def load_instance(input_file_name: str) -> list[list[int]]:
     return cells
 
 def encode_var(k: int, i: int, j: int) -> int:
-    return k * N * M + i * M + j + 1
+    return (k+K) * N * M + (i-1) * M + (j-1) + 1
 
 def main():
     pass

@@ -19,6 +19,16 @@ def load_instance(input_file_name: str) -> list[list[int]]:
 def encode_var(k: int, i: int, j: int) -> int:
     return (k+K) * N * M + (i-1) * M + (j-1) + 1
 
+def decode_var(var: int) -> tuple[int, int, int]:
+    var -= 1
+
+    k = var // (N * M) - K
+    var %= N * M
+    i = var // M + 1
+    j = var % M + 1
+
+    return k, i, j
+
 def main():
     pass
 

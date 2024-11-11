@@ -60,6 +60,32 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
                 for k2 in range(k1 + 1, K + 1):
                     clauses.append([-encode_var(k1, i + 1, j + 1), -encode_var(k2, i + 1, j + 1)])
 
+    # 4. Each start point has exactly one neighbour (cell with path with the same value)
+    # 4.1. Each start point has at least one neighbour
+    for i in range(N):
+        for j in range(M):
+            if (k := instance[i][j]) != 0:
+                clause = []
+
+                if i > 0: clause.append(encode_var(k, i, j + 1))
+                if j > 0: clause.append(encode_var(k, i + 1, j))
+                if i < N - 1: clause.append(encode_var(k, i + 2, j + 1))
+                if j < M - 1: clause.append(encode_var(k, i + 1, j + 2))
+
+                if clause: clauses.append(clause)
+
+    # 4.2. Each start point has at most one neighbour
+    for i in range(N):
+        for j in range(M):
+            if (k := instance[i][j]) != 0:
+                if 1 < i + 1 < N and 1 < j + 1 < M:
+                    for di, dj in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
+                        clauses.append([-encode_var(k, i + 1, j + 1), -encode_var(k, i + di + 1, j + dj + 1)])
+
+                # for di, dj in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
+                #     if 1 <= i + di + 1 <= N and 1 <= j + dj + 1 <= M:
+                #         clauses.append([-encode_var(k, i + 1, j + 1), -encode_var(k, i + di + 1, j + dj + 1)])
+
     return clauses, number_of_variables
 
 def main():

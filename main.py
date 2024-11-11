@@ -33,6 +33,15 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
     clauses = []
     number_of_variables = (2 * K + 1) * N * M
 
+    # 1. Initial values
+    for i in range(N):
+        for j in range(M):
+            if instance[i][j] == 0:
+                for k in range(-K, 0):
+                    clauses.append([-encode_var(k, i + 1, j + 1)])
+            else:
+                clauses.append([encode_var(-instance[i][j], i + 1, j + 1)])
+
     return clauses, number_of_variables
 
 def main():

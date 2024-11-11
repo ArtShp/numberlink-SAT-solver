@@ -29,6 +29,12 @@ def decode_var(var: int) -> tuple[int, int, int]:
 
     return k, i, j
 
+def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
+    clauses = []
+    number_of_variables = (2 * K + 1) * N * M
+
+    return clauses, number_of_variables
+
 def main():
     pass
 

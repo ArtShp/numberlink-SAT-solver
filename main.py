@@ -42,6 +42,11 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
             else:
                 clauses.append([encode_var(-instance[i][j], i + 1, j + 1)])
 
+    # 2. No zeros
+    for i in range(N):
+        for j in range(M):
+            clauses.append([-encode_var(0, i + 1, j + 1)])
+
     return clauses, number_of_variables
 
 def main():

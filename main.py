@@ -126,17 +126,17 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
 def get_top_neighbour(i: int, j: int) -> tuple[int, int]:
     return i - 1, j
 
-def get_bottom_neighbour(i: int, j: int) -> tuple[int, int]:
-    return i + 1, j
-
 def get_left_neighbour(i: int, j: int) -> tuple[int, int]:
     return i, j - 1
+
+def get_bottom_neighbour(i: int, j: int) -> tuple[int, int]:
+    return i + 1, j
 
 def get_right_neighbour(i: int, j: int) -> tuple[int, int]:
     return i, j + 1
 
 def get_neighbours(i: int, j: int) -> list[tuple[int, int]]:
-    return [get_top_neighbour(i, j), get_bottom_neighbour(i, j), get_left_neighbour(i, j), get_right_neighbour(i, j)]
+    return [get_top_neighbour(i, j), get_left_neighbour(i, j), get_bottom_neighbour(i, j), get_right_neighbour(i, j)]
 
 def main():
     pass

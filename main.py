@@ -78,7 +78,7 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
     for i in range(N):
         for j in range(M):
             if (k := instance[i][j]) != 0:
-                if 1 < i + 1 < N and 1 < j + 1 < M:
+                if 1 < i + 1 < N and 1 < j + 1 < M: # center
                     # !1 or !2, !1 or !3, !1 or !4, !2 or !3, !2 or !4, !3 or !4
                     clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)), -encode_var(k, *get_left_neighbour(i + 1, j + 1))])
                     clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)), -encode_var(k, *get_bottom_neighbour(i + 1, j + 1))])

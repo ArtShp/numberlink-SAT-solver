@@ -86,6 +86,19 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
                     clauses.append([-encode_var(k, *get_left_neighbour(i + 1, j + 1)), -encode_var(k, *get_bottom_neighbour(i + 1, j + 1))])
                     clauses.append([-encode_var(k, *get_left_neighbour(i + 1, j + 1)), -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
                     clauses.append([-encode_var(k, *get_bottom_neighbour(i + 1, j + 1)), -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                elif i + 1 == 1 and j + 1 == 1: # left top corner
+                    # !3 or !4
+                    clauses.append([-encode_var(k, *get_bottom_neighbour(i + 1, j + 1)), -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                elif i + 1 == 1 and j + 1 == M: # right top corner
+                    # !2 or !3
+                    clauses.append([-encode_var(k, *get_left_neighbour(i + 1, j + 1)), -encode_var(k, *get_bottom_neighbour(i + 1, j + 1))])
+                elif i + 1 == N and j + 1 == 1: # left bottom corner
+                    # !1 or !4
+                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)), -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                elif i + 1 == N and j + 1 == M: # right bottom corner
+                    # !1 or !2
+                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)), -encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+
 
     return clauses, number_of_variables
 

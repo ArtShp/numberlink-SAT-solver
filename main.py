@@ -142,6 +142,127 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
                                     -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
 
 
+    # 5. Each path cell has exactly 2 neighbours
+    # 5.1. Each path cell has at least 2 neighbours
+    for i in range(N):
+        for j in range(M):
+            if (k := instance[i][j]) != 0:
+                if i + 1 == 1 and j + 1 == 1:  # left top corner
+                    clauses.append([encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    -encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                    clauses.append([-encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    -encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                    clauses.append([-encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                elif i + 1 == 1 and j + 1 == M:  # right top corner
+                    clauses.append([encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    -encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                    clauses.append([-encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    -encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                    clauses.append([-encode_var(-k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                elif i + 1 == N and j + 1 == 1:  # left bottom corner
+                    clauses.append([encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    -encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                    clauses.append([-encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    -encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                    clauses.append([-encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_right_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                elif i + 1 == N and j + 1 == M:  # right top corner
+                    clauses.append([encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    -encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                    clauses.append([-encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                    clauses.append([encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    -encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_left_neighbour(i + 1, j + 1))])
+                    clauses.append([-encode_var(-k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(-k, *get_left_neighbour(i + 1, j + 1)),
+                                    -encode_var(k, *get_top_neighbour(i + 1, j + 1)),
+                                    encode_var(k, *get_left_neighbour(i + 1, j + 1))])
 
     return clauses, number_of_variables
 

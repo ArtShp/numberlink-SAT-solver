@@ -217,7 +217,7 @@ def foo_2(i: int, j: int, k: int, side: int) -> list[list[int]]:
 
     return clauses
 
-def generate_exactly_one_true_for_path(i: int, j: int, k: int, sides: list[int] = None) -> list[list[int]]:
+def generate_exactly_one_true_for_path(i: int, j: int, k: int, sides: list[int] = ()) -> list[list[int]]:
     all_sides = [1, 2, 3, 4]
     sides = list(set(all_sides) - set(sides))
 

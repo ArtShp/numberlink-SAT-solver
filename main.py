@@ -325,6 +325,45 @@ def foo_2(i: int, j: int, k: int, side: int) -> list[list[int]]:
 
     return clauses
 
+def generate_exactly_one_true_for_path(i: int, j: int, k: int, sides: list[int] = None) -> list[list[int]]:
+    all_sides = [1, 2, 3, 4]
+    sides = list(set(all_sides) - set(sides))
+
+    s = len(sides)
+
+    neighbours = get_neighbours(i, j)
+
+    Ks = [encode_var(-k, *neighbours[side - 1]) for side in sides]
+    Cs = [encode_var(k, *neighbours[side - 1]) for side in sides]
+
+    # At least one is true
+    clauses = [Ks + Cs]
+
+    for a in range(s):
+        clauses += [
+            Ks + Cs[:a] + [-Cs[a]] + Cs[a + 1:],
+            Ks[:a] + [-Ks[a]] + Ks[a + 1:] + Cs,
+            Ks[:a] + [-Ks[a]] + Ks[a + 1:] + Cs[:a] + [-Cs[a]] + Cs[a + 1:]
+        ]
+
+    # At most one is true
+    expressions = []
+    for a in range(s):
+        for b in range(a + 1, s):
+            expressions.append([-Ks[a], -Ks[b]])
+            expressions.append([-Cs[a], -Cs[b]])
+
+    for a in range(s):
+        for b in range(s):
+            if a != b:
+                expressions.append([-Ks[a], -Cs[b]])
+
+    for a in range(len(expressions)):
+        for b in range(a + 1, len(expressions)):
+            clauses.append(expressions[a] + expressions[b])
+
+    return clauses
+
 def get_top_neighbour(i: int, j: int) -> tuple[int, int]:
     return i - 1, j
 

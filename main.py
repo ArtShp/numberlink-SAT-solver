@@ -142,27 +142,27 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
                                     -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
 
     # 5. Each path cell has exactly 2 neighbours
-    # 5.1. Each path cell has at least 2 neighbours
     for i in range(N):
         for j in range(M):
             if (k := instance[i][j]) != 0:
                 if i + 1 == 1 and j + 1 == 1:  # left top corner
-                    clauses += foo_1(i + 1, j + 1, k, (1, 2))
+                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [1, 2])
                 elif i + 1 == 1 and j + 1 == M:  # right top corner
-                    clauses += foo_1(i + 1, j + 1, k, (1, 4))
+                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [1, 4])
                 elif i + 1 == N and j + 1 == 1:  # left bottom corner
-                    clauses += foo_1(i + 1, j + 1, k, (2, 3))
+                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [2, 3])
                 elif i + 1 == N and j + 1 == M:  # right bottom corner
-                    clauses += foo_1(i + 1, j + 1, k, (3, 4))
+                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [3, 4])
                 elif i + 1 == 1:  # top
-                    clauses += foo_2(i + 1, j + 1, k, 1)
+                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [1])
                 elif j + 1 == 1:  # left
-                    clauses += foo_2(i + 1, j + 1, k, 2)
+                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [2])
                 elif i + 1 == N:  # bottom
-                    clauses += foo_2(i + 1, j + 1, k, 3)
+                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [3])
                 elif j + 1 == M:  # right
-                    clauses += foo_2(i + 1, j + 1, k, 4)
-
+                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [4])
+                else:  # center
+                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k)
 
     return clauses, number_of_variables
 

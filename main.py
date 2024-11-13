@@ -146,7 +146,7 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
     # 5. Each path cell has exactly 2 neighbours
     for i in range(N):
         for j in range(M):
-            if (k := instance[i][j]) != 0:
+            if (k := instance[i][j]) == 0:
                 if i + 1 == 1 and j + 1 == 1:  # left top corner
                     clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [1, 2])
                 elif i + 1 == 1 and j + 1 == M:  # right top corner
@@ -176,17 +176,19 @@ def generate_exactly_one_true_for_path(i: int, j: int, k: int, sides: list[int] 
 
     neighbours = get_neighbours(i, j)
 
+    C = encode_var(k, i, j)
+
     Ks = [encode_var(-k, *neighbours[side - 1]) for side in sides]
     Cs = [encode_var(k, *neighbours[side - 1]) for side in sides]
 
     # At least one is true
-    clauses = [Ks + Cs]
+    clauses = [[-C] + Ks + Cs]
 
     for a in range(s):
         clauses += [
-            Ks + Cs[:a] + [-Cs[a]] + Cs[a + 1:],
-            Ks[:a] + [-Ks[a]] + Ks[a + 1:] + Cs,
-            Ks[:a] + [-Ks[a]] + Ks[a + 1:] + Cs[:a] + [-Cs[a]] + Cs[a + 1:]
+            [-C] + Ks + Cs[:a] + [-Cs[a]] + Cs[a + 1:],
+            [-C] + Ks[:a] + [-Ks[a]] + Ks[a + 1:] + Cs,
+            [-C] + Ks[:a] + [-Ks[a]] + Ks[a + 1:] + Cs[:a] + [-Cs[a]] + Cs[a + 1:]
         ]
 
     # At most one is true
@@ -203,7 +205,7 @@ def generate_exactly_one_true_for_path(i: int, j: int, k: int, sides: list[int] 
 
     for a in range(len(expressions)):
         for b in range(a + 1, len(expressions)):
-            clauses.append(expressions[a] + expressions[b])
+            clauses.append([-C] + expressions[a] + expressions[b])
 
     return clauses
 

@@ -220,6 +220,12 @@ def get_right_neighbour(i: int, j: int) -> tuple[int, int]:
 def get_neighbours(i: int, j: int) -> list[tuple[int, int]]:
     return [get_top_neighbour(i, j), get_left_neighbour(i, j), get_bottom_neighbour(i, j), get_right_neighbour(i, j)]
 
+def write_cnf(clauses: list[list[int]], number_of_variables: int, output_file_name: str) -> None:
+    with open(output_file_name, 'w') as file:
+        file.write(f'p cnf {number_of_variables} {len(clauses)}\n')
+        for clause in clauses:
+            file.write(' '.join(map(str, clause)) + ' 0\n')
+
 def main():
     pass
 

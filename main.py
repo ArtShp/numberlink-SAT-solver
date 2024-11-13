@@ -167,57 +167,23 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
     return clauses, number_of_variables
 
 def foo_1(i: int, j: int, k: int, sides: tuple[int, int]) -> list[list[int]]:
-    clauses = []
-
     neighbours = get_neighbours(i, j)
 
-    if sides == (1, 2):
-        neighbours.pop(0)
-        neighbours.pop(0)
-    elif sides == (1, 3):
-        neighbours.pop(0)
-        neighbours.pop(1)
-    elif sides == (1, 4):
-        neighbours.pop(0)
-        neighbours.pop(2)
-    elif sides == (2, 3):
-        neighbours.pop(1)
-        neighbours.pop(1)
-    elif sides == (2, 4):
-        neighbours.pop(1)
-        neighbours.pop(2)
-    elif sides == (3, 4):
-        neighbours.pop(2)
-        neighbours.pop(2)
+    all_sides = (1, 2, 3, 4)
+    sides = list(set(all_sides) - set(sides))
 
-    clauses.append([encode_var(-k, *neighbours[0]),
-                    encode_var(-k, *neighbours[1]),
-                    encode_var(k, *neighbours[0]),
-                    encode_var(k, *neighbours[1])])
-    clauses.append([encode_var(-k, *neighbours[0]),
-                    encode_var(-k, *neighbours[1]),
-                    encode_var(k, *neighbours[0]),
-                    -encode_var(k, *neighbours[1])])
-    clauses.append([encode_var(-k, *neighbours[0]),
-                    encode_var(-k, *neighbours[1]),
-                    -encode_var(k, *neighbours[0]),
-                    encode_var(k, *neighbours[1])])
-    clauses.append([encode_var(-k, *neighbours[0]),
-                    -encode_var(-k, *neighbours[1]),
-                    encode_var(k, *neighbours[0]),
-                    encode_var(k, *neighbours[1])])
-    clauses.append([-encode_var(-k, *neighbours[0]),
-                    encode_var(-k, *neighbours[1]),
-                    encode_var(k, *neighbours[0]),
-                    encode_var(k, *neighbours[1])])
-    clauses.append([encode_var(-k, *neighbours[0]),
-                    -encode_var(-k, *neighbours[1]),
-                    encode_var(k, *neighbours[0]),
-                    -encode_var(k, *neighbours[1])])
-    clauses.append([-encode_var(-k, *neighbours[0]),
-                    encode_var(-k, *neighbours[1]),
-                    -encode_var(k, *neighbours[0]),
-                    encode_var(k, *neighbours[1])])
+    K1, K2 = encode_var(-k, *neighbours[sides[0] - 1]), encode_var(-k, *neighbours[sides[1] - 1])
+    C1, C2 = encode_var(k, *neighbours[sides[0] - 1]), encode_var(k, *neighbours[sides[1] - 1])
+
+    clauses = [
+        [K1, K2, C1, C2],
+        [K1, K2, C1, -C2],
+        [K1, K2, -C1, C2],
+        [K1, -K2, C1, C2],
+        [-K1, K2, C1, C2],
+        [K1, -K2, C1, -C2],
+        [-K1, K2, -C1, C2]
+    ]
 
     return clauses
 

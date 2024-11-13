@@ -188,8 +188,6 @@ def foo_1(i: int, j: int, k: int, sides: tuple[int, int]) -> list[list[int]]:
     return clauses
 
 def foo_2(i: int, j: int, k: int, side: int) -> list[list[int]]:
-    clauses = []
-
     neighbours = get_neighbours(i, j)
     neighbours.pop(side - 1)
 
@@ -301,6 +299,29 @@ def foo_2(i: int, j: int, k: int, side: int) -> list[list[int]]:
                     -encode_var(k, *neighbours[0]),
                     -encode_var(k, *neighbours[1]),
                     -encode_var(k, *neighbours[2])])
+    K1, K2, K3 = encode_var(-k, *neighbours[0]), encode_var(-k, *neighbours[1]), encode_var(-k, *neighbours[2])
+    C1, C2, C3 = encode_var(k, *neighbours[0]), encode_var(k, *neighbours[1]), encode_var(k, *neighbours[2])
+
+    clauses = [
+        [K1, K2, K3, C1, C2, C3],
+        [K1, K2, K3, C1, C2, -C3],
+        [K1, K2, K3, C1, -C2, C3],
+        [K1, K2, K3, -C1, C2, C3],
+        [K1, K2, -K3, C1, C2, C3],
+        [K1, -K2, K3, C1, C2, C3],
+        [-K1, K2, K3, C1, C2, C3],
+        [K1, K2, -K3, C1, C2, -C3],
+        [K1, -K2, K3, C1, -C2, C3],
+        [-K1, K2, K3, -C1, C2, C3],
+        [K1, K2, K3, -C1, -C2, -C3],
+        [K1, K2, -K3, -C1, -C2, -C3],
+        [K1, -K2, K3, -C1, -C2, -C3],
+        [-K1, K2, K3, -C1, -C2, -C3],
+        [K1, -K2, -K3, -C1, -C2, -C3],
+        [-K1, K2, -K3, -C1, -C2, -C3],
+        [-K1, -K2, K3, -C1, -C2, -C3],
+        [-K1, -K2, -K3, -C1, -C2, -C3],
+    ]
 
     return clauses
 

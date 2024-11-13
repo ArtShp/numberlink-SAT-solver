@@ -1,7 +1,5 @@
 from curses.ascii import isalnum
 
-from test import clauses
-
 
 def load_instance(input_file_name: str) -> list[list[int]]:
     global K, N, M

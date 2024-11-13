@@ -166,57 +166,6 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
 
     return clauses, number_of_variables
 
-def foo_1(i: int, j: int, k: int, sides: tuple[int, int]) -> list[list[int]]:
-    neighbours = get_neighbours(i, j)
-
-    all_sides = (1, 2, 3, 4)
-    sides = list(set(all_sides) - set(sides))
-
-    K1, K2 = encode_var(-k, *neighbours[sides[0] - 1]), encode_var(-k, *neighbours[sides[1] - 1])
-    C1, C2 = encode_var(k, *neighbours[sides[0] - 1]), encode_var(k, *neighbours[sides[1] - 1])
-
-    clauses = [
-        [K1, K2, C1, C2],
-        [K1, K2, C1, -C2],
-        [K1, K2, -C1, C2],
-        [K1, -K2, C1, C2],
-        [-K1, K2, C1, C2],
-        [K1, -K2, C1, -C2],
-        [-K1, K2, -C1, C2]
-    ]
-
-    return clauses
-
-def foo_2(i: int, j: int, k: int, side: int) -> list[list[int]]:
-    neighbours = get_neighbours(i, j)
-    neighbours.pop(side - 1)
-
-    K1, K2, K3 = encode_var(-k, *neighbours[0]), encode_var(-k, *neighbours[1]), encode_var(-k, *neighbours[2])
-    C1, C2, C3 = encode_var(k, *neighbours[0]), encode_var(k, *neighbours[1]), encode_var(k, *neighbours[2])
-
-    clauses = [
-        [K1, K2, K3, C1, C2, C3],
-        [K1, K2, K3, C1, C2, -C3],
-        [K1, K2, K3, C1, -C2, C3],
-        [K1, K2, K3, -C1, C2, C3],
-        [K1, K2, -K3, C1, C2, C3],
-        [K1, -K2, K3, C1, C2, C3],
-        [-K1, K2, K3, C1, C2, C3],
-        [K1, K2, -K3, C1, C2, -C3],
-        [K1, -K2, K3, C1, -C2, C3],
-        [-K1, K2, K3, -C1, C2, C3],
-        [K1, K2, K3, -C1, -C2, -C3],
-        [K1, K2, -K3, -C1, -C2, -C3],
-        [K1, -K2, K3, -C1, -C2, -C3],
-        [-K1, K2, K3, -C1, -C2, -C3],
-        [K1, -K2, -K3, -C1, -C2, -C3],
-        [-K1, K2, -K3, -C1, -C2, -C3],
-        [-K1, -K2, K3, -C1, -C2, -C3],
-        [-K1, -K2, -K3, -C1, -C2, -C3],
-    ]
-
-    return clauses
-
 def generate_exactly_one_true_for_path(i: int, j: int, k: int, sides: list[int] = ()) -> list[list[int]]:
     all_sides = [1, 2, 3, 4]
     sides = list(set(all_sides) - set(sides))

@@ -67,10 +67,10 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
             if (k := instance[i][j]) != 0:
                 clause = []
 
-                if i + 1 > 1: clause.append([encode_var(k, *get_top_neighbour(i + 1, j + 1))])
-                if j + 1 > 1: clause.append([encode_var(k, *get_left_neighbour(i + 1, j + 1))])
-                if i + 1 < N: clause.append([encode_var(k, *get_bottom_neighbour(i + 1, j + 1))])
-                if j + 1 < M: clause.append([encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                if i + 1 > 1: clause.append(encode_var(k, *get_top_neighbour(i + 1, j + 1)))
+                if j + 1 > 1: clause.append(encode_var(k, *get_left_neighbour(i + 1, j + 1)))
+                if i + 1 < N: clause.append(encode_var(k, *get_bottom_neighbour(i + 1, j + 1)))
+                if j + 1 < M: clause.append(encode_var(k, *get_right_neighbour(i + 1, j + 1)))
 
                 if clause: clauses.append(clause)
 

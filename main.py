@@ -1,4 +1,6 @@
 from curses.ascii import isalnum
+import subprocess
+from subprocess import CompletedProcess
 
 
 def load_instance(input_file_name: str) -> list[list[int]]:
@@ -225,6 +227,10 @@ def write_cnf(clauses: list[list[int]], number_of_variables: int, output_file_na
         file.write(f'p cnf {number_of_variables} {len(clauses)}\n')
         for clause in clauses:
             file.write(' '.join(map(str, clause)) + ' 0\n')
+
+def call_solver(cnf_formula_file: str, solver_name: str, verbosity: int) -> CompletedProcess[bytes]:
+    return subprocess.run([f"./{solver_name}", '-model', f"-verb={verbosity}", cnf_formula_file],
+                          stdout=subprocess.PIPE)
 
 def main():
     pass

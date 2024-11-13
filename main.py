@@ -234,6 +234,40 @@ def call_solver(cnf_formula_file: str, solver_name: str, verbosity: int) -> Comp
     return subprocess.run([f"./{solver_name}", '-model', f"-verb={verbosity}", cnf_formula_file],
                           stdout=subprocess.PIPE)
 
+def print_result(result: CompletedProcess[bytes]) -> None:
+    for line in result.stdout.decode('utf-8').split('\n'):
+        print(line)
+
+    if result.returncode == 20:
+        return
+
+    model = []
+    for line in result.stdout.decode('utf-8').split('\n'):
+        if line.startswith("v"):
+            vars = line.split(" ")
+            vars.remove("v")
+            model.extend(int(v) for v in vars)
+    model.remove(0)
+
+    print()
+    print("#################################################")
+    print("############[ Human readable result ]############")
+    print("#################################################")
+    print()
+
+    cells = [[0 for _ in range(M)] for _ in range(N)]
+
+    for var in model:
+        if var > 0:
+            k, i, j = decode_var(var)
+            cells[i - 1][j - 1] = abs(k)
+
+    for row in cells:
+        for cell in row:
+            print(cell, end=' ')
+        print()
+
+
 def main():
     pass
 

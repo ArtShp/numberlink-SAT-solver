@@ -146,7 +146,7 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
     # 5. Each path cell has exactly 2 neighbours
     for i in range(N):
         for j in range(M):
-            if (k := instance[i][j]) == 0:
+            for k in range(1, K + 1):
                 if i + 1 == 1 and j + 1 == 1:  # left top corner
                     clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [1, 2])
                 elif i + 1 == 1 and j + 1 == M:  # right top corner

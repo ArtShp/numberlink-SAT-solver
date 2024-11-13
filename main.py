@@ -1,4 +1,6 @@
 from curses.ascii import isalnum
+import subprocess
+from subprocess import CompletedProcess
 
 
 def load_instance(input_file_name: str) -> list[list[int]]:
@@ -144,7 +146,7 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
     # 5. Each path cell has exactly 2 neighbours
     for i in range(N):
         for j in range(M):
-            if (k := instance[i][j]) != 0:
+            for k in range(1, K + 1):
                 if i + 1 == 1 and j + 1 == 1:  # left top corner
                     clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [1, 2])
                 elif i + 1 == 1 and j + 1 == M:  # right top corner
@@ -174,17 +176,19 @@ def generate_exactly_one_true_for_path(i: int, j: int, k: int, sides: list[int] 
 
     neighbours = get_neighbours(i, j)
 
+    C = encode_var(k, i, j)
+
     Ks = [encode_var(-k, *neighbours[side - 1]) for side in sides]
     Cs = [encode_var(k, *neighbours[side - 1]) for side in sides]
 
     # At least one is true
-    clauses = [Ks + Cs]
+    clauses = [[-C] + Ks + Cs]
 
     for a in range(s):
         clauses += [
-            Ks + Cs[:a] + [-Cs[a]] + Cs[a + 1:],
-            Ks[:a] + [-Ks[a]] + Ks[a + 1:] + Cs,
-            Ks[:a] + [-Ks[a]] + Ks[a + 1:] + Cs[:a] + [-Cs[a]] + Cs[a + 1:]
+            [-C] + Ks + Cs[:a] + [-Cs[a]] + Cs[a + 1:],
+            [-C] + Ks[:a] + [-Ks[a]] + Ks[a + 1:] + Cs,
+            [-C] + Ks[:a] + [-Ks[a]] + Ks[a + 1:] + Cs[:a] + [-Cs[a]] + Cs[a + 1:]
         ]
 
     # At most one is true
@@ -201,7 +205,7 @@ def generate_exactly_one_true_for_path(i: int, j: int, k: int, sides: list[int] 
 
     for a in range(len(expressions)):
         for b in range(a + 1, len(expressions)):
-            clauses.append(expressions[a] + expressions[b])
+            clauses.append([-C] + expressions[a] + expressions[b])
 
     return clauses
 
@@ -225,6 +229,44 @@ def write_cnf(clauses: list[list[int]], number_of_variables: int, output_file_na
         file.write(f'p cnf {number_of_variables} {len(clauses)}\n')
         for clause in clauses:
             file.write(' '.join(map(str, clause)) + ' 0\n')
+
+def call_solver(cnf_formula_file: str, solver_name: str, verbosity: int) -> CompletedProcess[bytes]:
+    return subprocess.run([f"./{solver_name}", '-model', f"-verb={verbosity}", cnf_formula_file],
+                          stdout=subprocess.PIPE)
+
+def print_result(result: CompletedProcess[bytes]) -> None:
+    for line in result.stdout.decode('utf-8').split('\n'):
+        print(line)
+
+    if result.returncode == 20:
+        return
+
+    model = []
+    for line in result.stdout.decode('utf-8').split('\n'):
+        if line.startswith("v"):
+            vars = line.split(" ")
+            vars.remove("v")
+            model.extend(int(v) for v in vars)
+    model.remove(0)
+
+    print()
+    print("#################################################")
+    print("############[ Human readable result ]############")
+    print("#################################################")
+    print()
+
+    cells = [[0 for _ in range(M)] for _ in range(N)]
+
+    for var in model:
+        if var > 0:
+            k, i, j = decode_var(var)
+            cells[i - 1][j - 1] = abs(k)
+
+    for row in cells:
+        for cell in row:
+            print(cell, end=' ')
+        print()
+
 
 def main():
     pass

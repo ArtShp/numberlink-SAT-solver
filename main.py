@@ -262,15 +262,19 @@ def print_result(result: CompletedProcess[bytes], result_file: str = None) -> No
             k, i, j = decode_var(var)
             cells[i - 1][j - 1] = abs(k)
 
+    max_num_len = len(str(K))
+
     for row in cells:
         for cell in row:
-            print(cell, end=' ')
+            print(cell, end=' ' * (max_num_len - len(str(cell)) + 1))
         print()
 
     if result_file:
-        with open(result_file, 'w') as file:
+        with open(result_file, 'w') as output:
             for row in cells:
-                file.write(' '.join(map(str, row)) + '\n')
+                for cell in row:
+                    print(cell, end=' ' * (max_num_len - len(str(cell)) + 1), file=output)
+                print(file=output)
 
 
 def main():

@@ -2,6 +2,7 @@ import subprocess
 from subprocess import CompletedProcess
 from argparse import ArgumentParser
 
+K, N, M = 0, 0, 0
 
 def load_instance(input_file_name: str) -> list[list[int]]:
     global K, N, M

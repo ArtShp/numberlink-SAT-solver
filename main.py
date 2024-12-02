@@ -234,7 +234,7 @@ def call_solver(cnf_formula_file: str, solver_name: str, verbosity: int) -> Comp
     return subprocess.run([f"./{solver_name}", '-model', f"-verb={verbosity}", cnf_formula_file],
                           stdout=subprocess.PIPE)
 
-def print_result(result: CompletedProcess[bytes]) -> None:
+def print_result(result: CompletedProcess[bytes], result_file: str = None) -> None:
     for line in result.stdout.decode('utf-8').split('\n'):
         print(line)
 
@@ -266,6 +266,11 @@ def print_result(result: CompletedProcess[bytes]) -> None:
         for cell in row:
             print(cell, end=' ')
         print()
+
+    if result_file:
+        with open(result_file, 'w') as file:
+            for row in cells:
+                file.write(' '.join(map(str, row)) + '\n')
 
 
 def main():
@@ -308,6 +313,15 @@ def main():
             "Verbosity of the SAT solver used."
         ),
     )
+    parser.add_argument(
+        "-r",
+        "--result",
+        default=None,
+        type=str,
+        help=(
+            "File for solved puzzle."
+        ),
+    )
     args = parser.parse_args()
 
     instance = load_instance(args.input)
@@ -315,7 +329,7 @@ def main():
     write_cnf(clauses, number_of_variables, args.output)
     result = call_solver(args.output, args.solver, args.verb)
 
-    print_result(result)
+    print_result(result, args.result)
 
 
 if __name__ == '__main__':

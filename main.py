@@ -11,7 +11,7 @@ def load_instance(input_file_name: str) -> list[list[int]]:
         K = int(next(file))
         N, M = map(int, next(file).split())
         for line in file:
-            line = line.split()
+            line = line.strip().split()
             if line:
                 line = [int(x) if x.isdigit() else 0 for x in line]
                 cells.append(line)

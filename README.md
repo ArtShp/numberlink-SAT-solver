@@ -12,7 +12,7 @@ The field is a $N \times M$ grid. In the cells there are situated $K$ pairs of n
 
 ### Input file format
 
-Input file is a normal text file.
+Input file is a normal text file. It represents a puzzle field to be solved.
 
 The first row has the only number $K$. The second row has numbers $N$ and $M$, that represent number of rows and columns respectively, separated with a whitespace.
 
@@ -20,7 +20,7 @@ Next $N$ rows consist of $M$ elements each. An element represents a specific cel
 If there's a number in the game field, we copy it in the cell.
 If there's an empty cell, we use a dot ('.') symbol instead.
 
-### Example
+#### Example of input file
 
 ```text
 5
@@ -32,4 +32,24 @@ If there's an empty cell, we use a dot ('.') symbol instead.
 . . . . . . .
 . . 1 . . . .
 2 . . . 4 . .
+```
+
+### Result file format
+
+Result file is a normal text file. It represents a solved puzzle.
+
+It consists of $N$ rows, each with $M$ elements. An element represents a specific cell. Elements are separated with whitespaces.
+
+Each cell is a number from $1$ to $K$, which represents either cell of a path corresponding to specific number or an end point of a path.
+
+#### Example of result file
+
+```text
+2 2 2 4 4 4 4
+2 3 2 2 2 5 4
+2 3 3 3 1 5 4
+2 5 5 5 1 5 4
+2 5 1 1 1 5 4
+2 5 1 5 5 5 4
+2 5 5 5 4 4 4
 ```

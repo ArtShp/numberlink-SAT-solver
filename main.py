@@ -14,7 +14,7 @@ def load_instance(input_file_name: str) -> list[list[int]]:
         for line in file:
             line = line.split()
             if line:
-                line = [int(x) if isalnum(x) else 0 for x in line]
+                line = [int(x) if x.isdigit() else 0 for x in line]
                 cells.append(line)
 
     return cells

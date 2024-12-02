@@ -2,6 +2,7 @@ import subprocess
 from subprocess import CompletedProcess
 from argparse import ArgumentParser
 
+K, N, M = 0, 0, 0
 
 def load_instance(input_file_name: str) -> list[list[int]]:
     global K, N, M
@@ -11,7 +12,7 @@ def load_instance(input_file_name: str) -> list[list[int]]:
         K = int(next(file))
         N, M = map(int, next(file).split())
         for line in file:
-            line = line.split()
+            line = line.strip().split()
             if line:
                 line = [int(x) if x.isdigit() else 0 for x in line]
                 cells.append(line)
@@ -234,7 +235,7 @@ def call_solver(cnf_formula_file: str, solver_name: str, verbosity: int) -> Comp
     return subprocess.run([f"./{solver_name}", '-model', f"-verb={verbosity}", cnf_formula_file],
                           stdout=subprocess.PIPE)
 
-def print_result(result: CompletedProcess[bytes]) -> None:
+def print_result(result: CompletedProcess[bytes], result_file: str = None) -> None:
     for line in result.stdout.decode('utf-8').split('\n'):
         print(line)
 
@@ -262,10 +263,19 @@ def print_result(result: CompletedProcess[bytes]) -> None:
             k, i, j = decode_var(var)
             cells[i - 1][j - 1] = abs(k)
 
+    max_num_len = len(str(K))
+
     for row in cells:
         for cell in row:
-            print(cell, end=' ')
+            print(cell, end=' ' * (max_num_len - len(str(cell)) + 1))
         print()
+
+    if result_file:
+        with open(result_file, 'w') as output:
+            for row in cells:
+                for cell in row:
+                    print(cell, end=' ' * (max_num_len - len(str(cell)) + 1), file=output)
+                print(file=output)
 
 
 def main():
@@ -308,6 +318,15 @@ def main():
             "Verbosity of the SAT solver used."
         ),
     )
+    parser.add_argument(
+        "-r",
+        "--result",
+        default=None,
+        type=str,
+        help=(
+            "File for solved puzzle."
+        ),
+    )
     args = parser.parse_args()
 
     instance = load_instance(args.input)
@@ -315,7 +334,7 @@ def main():
     write_cnf(clauses, number_of_variables, args.output)
     result = call_solver(args.output, args.solver, args.verb)
 
-    print_result(result)
+    print_result(result, args.result)
 
 
 if __name__ == '__main__':

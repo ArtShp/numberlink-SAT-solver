@@ -1,4 +1,3 @@
-from curses.ascii import isalnum
 import subprocess
 from subprocess import CompletedProcess
 from argparse import ArgumentParser

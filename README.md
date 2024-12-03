@@ -53,3 +53,20 @@ Each cell is a number from $1$ to $K$, which represents either cell of a path co
 2 5 1 5 5 5 4
 2 5 5 5 4 4 4
 ```
+
+## Encoding
+
+The problem is encoded using one set of variables.
+Variables $P(k, i, j)$ represents whether at position $(i, j)$ is number $k$.
+Specifically, $i \in \{1, \dots, N\}$, $j \in \{1, \dots, M\}$ and $k \in \{-K, \dots, -1, 0, 1, \dots, K\}$.
+
+Coordinates $(i, j)$ represents usual matrix coordinates, so $i$ goes top to bottom and $j$ goes left-to-right.
+
+If $k < 0$ (let $k = -c$), then it represents end point number $-k$ (here $c$).
+E.g. variable $P(-3, 1, 2)$ represents the fact, that on position $(1, 2)$ there is end point number $3$.
+
+If $k > 0$, then it represents path cell with number $k$.
+E.g. variable $P(3, 1, 2)$ represents the fact, that on position $(1, 2)$ there is path cell with number $3$.
+
+If $k = 0$, then it represents empty cell.
+E.g. variable $P(0, 1, 2)$ represents the fact, that on position $(1, 2)$ there is an empty cell.

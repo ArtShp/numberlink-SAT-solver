@@ -109,9 +109,19 @@ main.py [-h] [-i INPUT] [-o OUTPUT] [-r RESULT] [-s SOLVER] [-v {0,1}]
 
 Command-line options:
 
-- ```-h```, ```--help``` : Show a help message.
-- ```-i INPUT```, ```--input INPUT``` : An instance file. Default: "input.in".
-- ```-o OUTPUT```, ```--output OUTPUT``` : Output file for the DIMACS format (i.e. the CNF formula).
-- ```-r RESULT```, ```--result RESULT``` : Solved puzzle file. By default no result is printed to a file.
-- ```-s SOLVER```, ```--solver SOLVER``` : The SAT solver to be used.
-- ```-v {0,1}```, ```--verb {0,1}``` :  Verbosity of the SAT solver used.
+- `-h`, `--help` : Show a help message.
+- `-i INPUT`, `--input INPUT` : An instance file. Default: "input.in".
+- `-o OUTPUT`, `--output OUTPUT` : Output file for the DIMACS format (i.e. the CNF formula).
+- `-r RESULT`, `--result RESULT` : Solved puzzle file. By default no result is printed to a file.
+- `-s SOLVER`, `--solver SOLVER` : The SAT solver to be used.
+- `-v {0,1}`, `--verb {0,1}` :  Verbosity of the SAT solver used.
+
+## Example instances
+
+- `input-7by7.in` : A $7 \times 7$ easy-solvable instance.
+- `input-13by13.in` : A $13 \times 13$ medium-solvable instance.
+- `input-10by40.in` : A $10 \times 40$ hardly solvable instance.
+- `input-20by20.in` : A $20 \times 20$ hardly solvable instance.
+- `input-20by20-many-nodes.in` : A $20 \times 20$ hardly solvable instance with relatively big $K$.
+- `input-30by30.in` : A $30 \times 30$ extremely hard solvable instance, not computable in adequate time.
+- `input-40by40.in` : A $40 \times 40$ extremely hard solvable instance, not computable in adequate time.

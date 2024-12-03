@@ -104,7 +104,7 @@ Thus we prohibit to have more or less than two neighbor with the same number, bu
 Basic usage:
 
 ```bash
-main.py [-h] [-i INPUT] [-o OUTPUT] [-r RESULT] [-s SOLVER] [-v {0,1}]
+numberlink.py [-h] [-i INPUT] [-o OUTPUT] [-r RESULT] [-s SOLVER] [-v {0,1}]
 ```
 
 Command-line options:

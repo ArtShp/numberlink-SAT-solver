@@ -8,7 +8,7 @@ The player has to pair up all the matching numbers on the grid with single conti
 
 It is considered that a problem is well-designed only if it has a unique solution and all the cells in the grid are filled, although some Numberlink designers do not stipulate this.
 
-The field is a $N \times M$ grid. In the cells there are situated $K$ pairs of natural numbers from $1$ to $K$, in each cell at most one number.
+The field is an $N \times M$ grid. In the cells there are situated $K$ pairs of natural numbers from $1$ to $K$, in each cell at most one number.
 
 ### Input file format
 
@@ -94,10 +94,10 @@ $$
 $$
 
 4. Each end point has exactly one neighbor represented as path cell with the same number.
-Thus we prohibit to have more or less than one neighbor with the same number, but there're no limitations for neighbors with different numbers.
+Thus, we prohibit to have more or less than one neighbor with the same number, but there are no limitations for neighbors with different numbers.
 
 5. Each path point has exactly two neighbors represented as path cells with the same number.
-Thus we prohibit to have more or less than two neighbor with the same number, but there're no limitations for neighbors with different numbers.
+Thus, we prohibit to have more or less than two neighbor with the same number, but there are no limitations for neighbors with different numbers.
 
 ## User documentation
 
@@ -112,7 +112,7 @@ Command-line options:
 - `-h`, `--help` : Show a help message.
 - `-i INPUT`, `--input INPUT` : An instance file. Default: "input.in".
 - `-o OUTPUT`, `--output OUTPUT` : Output file for the DIMACS format (i.e. the CNF formula).
-- `-r RESULT`, `--result RESULT` : Solved puzzle file. By default no result is printed to a file.
+- `-r RESULT`, `--result RESULT` : Solved puzzle file. By default, no result is printed to a file.
 - `-s SOLVER`, `--solver SOLVER` : The SAT solver to be used.
 - `-v {0,1}`, `--verb {0,1}` :  Verbosity of the SAT solver used.
 

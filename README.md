@@ -1,6 +1,6 @@
 # Numberlink SAT Solver
 
-## Problem description
+# Problem description
 
 Here is a [link](https://en.wikipedia.org/wiki/Numberlink) to game description.
 
@@ -10,7 +10,7 @@ It is considered that a problem is well-designed only if it has a unique solutio
 
 The field is a $N \times M$ grid. In the cells there are situated $K$ pairs of natural numbers from $1$ to $K$, in each cell at most one number.
 
-### Input file format
+## Input file format
 
 Input file is a normal text file. It represents a puzzle field to be solved.
 
@@ -20,7 +20,7 @@ Next $N$ rows consist of $M$ elements each. An element represents a specific cel
 If there's a number in the game field, we copy it in the cell.
 If there's an empty cell, we use a dot ('.') symbol instead.
 
-#### Example of input file
+### Example of input file
 
 ```text
 5
@@ -34,7 +34,7 @@ If there's an empty cell, we use a dot ('.') symbol instead.
 2 . . . 4 . .
 ```
 
-### Result file format
+## Result file format
 
 Result file is a normal text file. It represents a solved puzzle.
 
@@ -42,7 +42,7 @@ It consists of $N$ rows, each with $M$ elements. An element represents a specifi
 
 Each cell is a number from $1$ to $K$, which represents either cell of a path corresponding to specific number or an end point of a path.
 
-#### Example of result file
+### Example of result file
 
 ```text
 2 2 2 4 4 4 4

@@ -73,7 +73,7 @@ E.g. variable $P(0, 1, 2)$ represents the fact, that on position $(1, 2)$ there 
 
 ### Axioms
 
-1. Each cell has exactly one label (number)
+1. Each cell has exactly one label (number), i.e. from $-K$ to $K$.
 
 $$
 \forall i, j : \bigvee_{k}{p_{k,i,j}} \\

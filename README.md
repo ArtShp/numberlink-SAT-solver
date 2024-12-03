@@ -70,3 +70,12 @@ E.g. variable $P(3, 1, 2)$ represents the fact, that on position $(1, 2)$ there 
 
 If $k = 0$, then it represents empty cell.
 E.g. variable $P(0, 1, 2)$ represents the fact, that on position $(1, 2)$ there is an empty cell.
+
+### Axioms
+
+1. Each cell has exactly one label (number)
+
+$$
+\forall i, j : \bigvee_{k}{p_{k,i,j}} \\
+\forall i, j : \bigwedge_{k_1 \neq k_2}{\neg p_{k_1,i,j} \lor \neg p_{k_2,i,j}}
+$$

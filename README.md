@@ -79,3 +79,9 @@ $$
 \forall i, j : \bigvee_{k}{p_{k,i,j}} \\
 \forall i, j : \bigwedge_{k_1 \neq k_2}{\neg p_{k_1,i,j} \lor \neg p_{k_2,i,j}}
 $$
+
+2. There is no cells with $0$. This actually means that all cells should be filled.
+
+$$
+\bigwedge_{i,j}{\neg p_{0,i,j}}
+$$

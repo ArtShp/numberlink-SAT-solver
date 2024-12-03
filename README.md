@@ -95,3 +95,6 @@ $$
 
 4. Each end point has exactly one neighbor represented as path cell with the same number.
 Thus we prohibit to have more or less than one neighbor with the same number, but there're no limitations for neighbors with different numbers.
+
+5. Each path point has exactly two neighbors represented as path cells with the same number.
+Thus we prohibit to have more or less than two neighbor with the same number, but there're no limitations for neighbors with different numbers.

@@ -92,3 +92,6 @@ $$
 \forall i,j; k \in \{1, \dots, K\} : p_{-k, i, j} \iff \text{cell $(i, j)$ has input value $k$} \\
 \forall i,j; k \in \{1, \dots, K\} : \neg p_{-k, i, j} \iff \text{cell $(i, j)$ has not input value $k$}
 $$
+
+4. Each end point has exactly one neighbor represented as path cell with the same number.
+Thus we prohibit to have more or less than one neighbor with the same number, but there're no limitations for neighbors with different numbers.

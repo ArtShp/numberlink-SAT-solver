@@ -37,83 +37,83 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
     number_of_variables = (2 * K + 1) * N * M
 
     # 1. Initial values
-    for i in range(N):
-        for j in range(M):
-            if instance[i][j] == 0:
+    for i in range(1, N + 1):
+        for j in range(1, M + 1):
+            if instance[i - 1][j - 1] == 0:
                 for k in range(-K, 0):
-                    clauses.append([-encode_var(k, i + 1, j + 1)])
+                    clauses.append([-encode_var(k, i, j)])
             else:
-                clauses.append([encode_var(-instance[i][j], i + 1, j + 1)])
+                clauses.append([encode_var(-instance[i][j], i, j)])
 
     # 2. No zeros
-    for i in range(N):
-        for j in range(M):
-            clauses.append([-encode_var(0, i + 1, j + 1)])
+    for i in range(1, N + 1):
+        for j in range(1, M + 1):
+            clauses.append([-encode_var(0, i, j)])
 
     # 3. Each cell has exactly one value
     # 3.1. Each cell has at least one value
-    for i in range(N):
-        for j in range(M):
-            clauses.append([encode_var(k, i + 1, j + 1) for k in range(-K, K + 1)])
+    for i in range(1, N + 1):
+        for j in range(1, M + 1):
+            clauses.append([encode_var(k, i, j) for k in range(-K, K + 1)])
 
     # 3.2. Each cell has at most one value
-    for i in range(N):
-        for j in range(M):
+    for i in range(1, N + 1):
+        for j in range(1, M + 1):
             for k1 in range(-K, K + 1):
                 for k2 in range(k1 + 1, K + 1):
-                    clauses.append([-encode_var(k1, i + 1, j + 1), -encode_var(k2, i + 1, j + 1)])
+                    clauses.append([-encode_var(k1, i, j), -encode_var(k2, i, j)])
 
     # 4. Each start point has exactly one neighbour (cell with path with the same value)
     # 4.1. Each start point has at least one neighbour
-    for i in range(N):
-        for j in range(M):
-            if (k := instance[i][j]) != 0:
+    for i in range(1, N + 1):
+        for j in range(1, M + 1):
+            if (k := instance[i - 1][j - 1]) != 0:
                 clause = []
 
-                if i + 1 > 1: clause.append(encode_var(k, *get_top_neighbour(i + 1, j + 1)))
-                if j + 1 > 1: clause.append(encode_var(k, *get_left_neighbour(i + 1, j + 1)))
-                if i + 1 < N: clause.append(encode_var(k, *get_bottom_neighbour(i + 1, j + 1)))
-                if j + 1 < M: clause.append(encode_var(k, *get_right_neighbour(i + 1, j + 1)))
+                if i > 1: clause.append(encode_var(k, *get_top_neighbour(i, j)))
+                if j > 1: clause.append(encode_var(k, *get_left_neighbour(i, j)))
+                if i < N: clause.append(encode_var(k, *get_bottom_neighbour(i, j)))
+                if j < M: clause.append(encode_var(k, *get_right_neighbour(i, j)))
 
                 if clause: clauses.append(clause)
 
     # 4.2. Each start point has at most one neighbour
-    for i in range(N):
-        for j in range(M):
-            if (k := instance[i][j]) != 0:
+    for i in range(1, N + 1):
+        for j in range(1, M + 1):
+            if (k := instance[i - 1][j - 1]) != 0:
                 neighbours = []
 
-                if i + 1 > 1: neighbours.append(get_top_neighbour(i + 1, j + 1))
-                if j + 1 > 1: neighbours.append(get_left_neighbour(i + 1, j + 1))
-                if i + 1 < N: neighbours.append(get_bottom_neighbour(i + 1, j + 1))
-                if j + 1 < M: neighbours.append(get_right_neighbour(i + 1, j + 1))
+                if i > 1: neighbours.append(get_top_neighbour(i, j))
+                if j > 1: neighbours.append(get_left_neighbour(i, j))
+                if i < N: neighbours.append(get_bottom_neighbour(i, j))
+                if j < M: neighbours.append(get_right_neighbour(i, j))
 
                 for a in range(len(neighbours)):
                     for b in range(a + 1, len(neighbours)):
                         clauses.append([-encode_var(k, *neighbours[a]), -encode_var(k, *neighbours[b])])
 
     # 5. Each path cell has exactly 2 neighbours
-    for i in range(N):
-        for j in range(M):
+    for i in range(1, N + 1):
+        for j in range(1, M + 1):
             for k in range(1, K + 1):
-                if i + 1 == 1 and j + 1 == 1:  # left top corner
-                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [1, 2])
-                elif i + 1 == 1 and j + 1 == M:  # right top corner
-                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [1, 4])
-                elif i + 1 == N and j + 1 == 1:  # left bottom corner
-                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [2, 3])
-                elif i + 1 == N and j + 1 == M:  # right bottom corner
-                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [3, 4])
-                elif i + 1 == 1:  # top
-                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [1])
-                elif j + 1 == 1:  # left
-                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [2])
-                elif i + 1 == N:  # bottom
-                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [3])
-                elif j + 1 == M:  # right
-                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k, [4])
+                if i == 1 and j == 1:  # left top corner
+                    clauses += generate_exactly_one_true_for_path(i, j, k, [1, 2])
+                elif i == 1 and j == M:  # right top corner
+                    clauses += generate_exactly_one_true_for_path(i, j, k, [1, 4])
+                elif i == N and j == 1:  # left bottom corner
+                    clauses += generate_exactly_one_true_for_path(i, j, k, [2, 3])
+                elif i == N and j == M:  # right bottom corner
+                    clauses += generate_exactly_one_true_for_path(i, j, k, [3, 4])
+                elif i == 1:  # top
+                    clauses += generate_exactly_one_true_for_path(i, j, k, [1])
+                elif j == 1:  # left
+                    clauses += generate_exactly_one_true_for_path(i, j, k, [2])
+                elif i == N:  # bottom
+                    clauses += generate_exactly_one_true_for_path(i, j, k, [3])
+                elif j == M:  # right
+                    clauses += generate_exactly_one_true_for_path(i, j, k, [4])
                 else:  # center
-                    clauses += generate_exactly_one_true_for_path(i + 1, j + 1, k)
+                    clauses += generate_exactly_one_true_for_path(i, j, k)
 
     return clauses, number_of_variables
 

@@ -3,6 +3,18 @@
 This is a solution to homework for Propositional and Predicate Logic (NAIL062).
 The provided Python code encodes, solves, and decodes the numberlink puzzle via reduction to SAT (i.e. propositional logic formula).
 
+## Table of Contents
+
+- [Problem Description](#problem-description)
+- [Input File Format](#input-file-format)
+- [Result File Format](#result-file-format)
+- [Encoding](#encoding)
+- [Axioms](#axioms)
+- [Installation](#installation)
+- [User Documentation](#user-documentation)
+- [Example Instances](#example-instances)
+- [License](#license)
+
 ## Problem description
 
 Here is a [link](https://en.wikipedia.org/wiki/Numberlink) to game description.

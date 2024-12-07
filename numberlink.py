@@ -213,9 +213,34 @@ def print_result(result: CompletedProcess[bytes], result_file: str = None) -> No
 
     max_num_len = len(str(K))
 
+    paths = [[str(cells[i][j]) for j in range(M)] for i in range(N)]
+
+    for k in range(1, K + 1):
+        for i in range(N):
+            for j in range(M):
+                if cells[i][j] == k:
+                    if 0 < j < M - 1 and cells[i][j - 1] == cells[i][j + 1] == k:
+                        paths[i][j] = '─'
+                    elif 0 < i < N - 1 and cells[i - 1][j] == cells[i + 1][j] == k:
+                        paths[i][j] = '|'
+                    elif i < N - 1 and j > 0 and cells[i][j - 1] == cells[i + 1][j] == k:
+                        paths[i][j] = '┐'
+                    elif i < N - 1 and j < M - 1 and cells[i][j + 1] == cells[i + 1][j] == k:
+                        paths[i][j] = '┌'
+                    elif i > 0 and j > 0 and cells[i][j - 1] == cells[i - 1][j] == k:
+                        paths[i][j] = '┘'
+                    elif i > 0 and j < M - 1 and cells[i][j + 1] == cells[i - 1][j] == k:
+                        paths[i][j] = '└'
+
     for row in cells:
         for cell in row:
             print(cell, end=' ' * (max_num_len - len(str(cell)) + 1))
+        print()
+
+    print()
+    for row in paths:
+        for cell in row:
+            print(cell, end=' ' * (max_num_len - len(cell) + 1))
         print()
 
     if result_file:
@@ -223,6 +248,13 @@ def print_result(result: CompletedProcess[bytes], result_file: str = None) -> No
             for row in cells:
                 for cell in row:
                     print(cell, end=' ' * (max_num_len - len(str(cell)) + 1), file=output)
+                print(file=output)
+
+            print(file=output)
+
+            for row in paths:
+                for cell in row:
+                    print(cell, end=' ' * (max_num_len - len(cell) + 1), file=output)
                 print(file=output)
 
 

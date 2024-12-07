@@ -41,9 +41,11 @@ If there's an empty cell, we use a dot ('.') symbol instead.
 
 Result file is a normal text file. It represents a solved puzzle.
 
-It consists of $N$ rows, each with $M$ elements. An element represents a specific cell. Elements are separated with whitespaces.
+It consists of two parts. The first part is a matrix of numbers. The second part is a matrix of paths between nodes, that represents the solved puzzle.
 
-Each cell is a number from $1$ to $K$, which represents either cell of a path corresponding to specific number or an end point of a path.
+Each part consists of $N$ rows, each with $M$ elements. An element represents a specific cell. Elements are separated with whitespaces.
+
+Each cell is a number from $1$ to $K$, which for the first part represents either cell of a path corresponding to specific number or an end point of a path and for the second part represents either an end point or path cell.
 
 #### Example of result file
 
@@ -55,6 +57,14 @@ Each cell is a number from $1$ to $K$, which represents either cell of a path co
 2 5 1 1 1 5 4
 2 5 1 5 5 5 4
 2 5 5 5 4 4 4
+
+┌ ─ ┐ 4 ─ ─ ┐
+| 3 └ ─ 2 5 |
+| └ ─ 3 1 | |
+| ┌ ─ 5 | | |
+| | ┌ ─ ┘ | |
+| | 1 ┌ ─ ┘ |
+2 └ ─ ┘ 4 ─ ┘
 ```
 
 ## Encoding

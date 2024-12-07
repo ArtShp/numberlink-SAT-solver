@@ -43,7 +43,7 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
                 for k in range(-K, 0):
                     clauses.append([-encode_var(k, i, j)])
             else:
-                clauses.append([encode_var(-instance[i][j], i, j)])
+                clauses.append([encode_var(-instance[i - 1][j - 1], i, j)])
 
     # 2. No zeros
     for i in range(1, N + 1):

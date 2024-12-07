@@ -81,68 +81,16 @@ def encode(instance: list[list[int]]) -> tuple[list[list[int]], int]:
     for i in range(N):
         for j in range(M):
             if (k := instance[i][j]) != 0:
-                if i + 1 == 1 and j + 1 == 1:  # left top corner
-                    # !3 or !4
-                    clauses.append([-encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
-                elif i + 1 == 1 and j + 1 == M:  # right top corner
-                    # !2 or !3
-                    clauses.append([-encode_var(k, *get_left_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_bottom_neighbour(i + 1, j + 1))])
-                elif i + 1 == N and j + 1 == 1:  # left bottom corner
-                    # !1 or !4
-                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
-                elif i + 1 == N and j + 1 == M:  # right bottom corner
-                    # !1 or !2
-                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_left_neighbour(i + 1, j + 1))])
-                elif i + 1 == 1:  # top
-                    # !2 or !3, !2 or !4, !3 or !4
-                    clauses.append([-encode_var(k, *get_left_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_bottom_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_left_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
-                elif j + 1 == 1:  # left
-                    # !1 or !3, !1 or !4, !3 or !4
-                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_bottom_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
-                elif i + 1 == N:  # bottom
-                    # !1 or !2, !1 or !4, !2 or !4
-                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_left_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_left_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
-                elif j + 1 == M:  # right
-                    # !1 or !2, !1 or !3, !2 or !3
-                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_left_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_bottom_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_left_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_bottom_neighbour(i + 1, j + 1))])
-                else:  # center
-                    # !1 or !2, !1 or !3, !1 or !4, !2 or !3, !2 or !4, !3 or !4
-                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_left_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_bottom_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_top_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_left_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_bottom_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_left_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
-                    clauses.append([-encode_var(k, *get_bottom_neighbour(i + 1, j + 1)),
-                                    -encode_var(k, *get_right_neighbour(i + 1, j + 1))])
+                neighbours = []
+
+                if i + 1 > 1: neighbours.append(get_top_neighbour(i + 1, j + 1))
+                if j + 1 > 1: neighbours.append(get_left_neighbour(i + 1, j + 1))
+                if i + 1 < N: neighbours.append(get_bottom_neighbour(i + 1, j + 1))
+                if j + 1 < M: neighbours.append(get_right_neighbour(i + 1, j + 1))
+
+                for a in range(len(neighbours)):
+                    for b in range(a + 1, len(neighbours)):
+                        clauses.append([-encode_var(k, *neighbours[a]), -encode_var(k, *neighbours[b])])
 
     # 5. Each path cell has exactly 2 neighbours
     for i in range(N):

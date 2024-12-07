@@ -102,15 +102,19 @@ $$
 3. Input data do not change.
 
 $$
-\forall i,j; k \in \{1, \dots, K\} : p_{-k, i, j} \iff \text{cell $(i, j)$ has input value $k$} \\
-\forall i,j; k \in \{1, \dots, K\} : \neg p_{-k, i, j} \iff \text{cell $(i, j)$ has not input value $k$}
+\begin{align*}
+\forall i,j; k \in \{1, \dots, K\} : p_{-k, i, j} &\iff \text{cell $(i, j)$ has input value $k$} \\
+\forall i,j; k \in \{1, \dots, K\} : \neg p_{-k, i, j} &\iff \text{cell $(i, j)$ has not input value $k$}
+\end{align*}
 $$
 
 4. Each end point has exactly one neighbor represented as path cell with the same number.
 Thus, we prohibit to have more or less than one neighbor with the same number, but there are no limitations for neighbors with different numbers.
+This condition says that from each end point there is exactly one path.
 
 5. Each path point has exactly two neighbors represented as path cells with the same number.
 Thus, we prohibit to have more or less than two neighbor with the same number, but there are no limitations for neighbors with different numbers.
+This condition says that each path cell is connected to exactly two other path cells, so the path neither branches nor breaks.
 
 ## Installation
 

@@ -1,5 +1,8 @@
 # Numberlink SAT Solver
 
+This is a solution to homework for Propositional and Predicate Logic (NAIL062).
+The provided Python code encodes, solves, and decodes the numberlink puzzle via reduction to SAT (i.e. propositional logic formula).
+
 ## Problem description
 
 Here is a [link](https://en.wikipedia.org/wiki/Numberlink) to game description.
@@ -98,6 +101,20 @@ Thus, we prohibit to have more or less than one neighbor with the same number, b
 
 5. Each path point has exactly two neighbors represented as path cells with the same number.
 Thus, we prohibit to have more or less than two neighbor with the same number, but there are no limitations for neighbors with different numbers.
+
+## Installation
+
+The SAT solver used is [Glucose](https://www.labri.fr/perso/lsimon/research/glucose/), more specifically [Glucose 4.2.1](https://github.com/audemard/glucose/releases/tag/4.2.1). The source code is compiled using
+
+```bash
+cmake .
+make
+```
+
+This example contains a compiled UNIX binary of the Glucose solver.
+For optimal experience, I encourage the user to compile the SAT solver themselves.
+Note that the solver, as well as the Python script, are assumed to work on UNIX-based systems.
+In case you prefer using Windows, I recommend to use WSL.
 
 ## User documentation
 

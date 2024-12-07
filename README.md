@@ -186,3 +186,7 @@ Command-line options:
 - `input-20by20-many-nodes.in` : A $20 \times 20$ hardly solvable instance with relatively big $K$.
 - `input-30by30.in` : A $30 \times 30$ extremely hard solvable instance, not computable in adequate time.
 - `input-40by40.in` : A $40 \times 40$ extremely hard solvable instance, not computable in adequate time.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) file for details.

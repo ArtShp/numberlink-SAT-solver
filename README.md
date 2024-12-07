@@ -111,10 +111,40 @@ $$
 4. Each end point has exactly one neighbor represented as path cell with the same number.
 Thus, we prohibit to have more or less than one neighbor with the same number, but there are no limitations for neighbors with different numbers.
 This condition says that from each end point there is exactly one path.
+It's described by two conditions: if there is an end point, then there is at least one and at most one path cell with the same number.
 
-5. Each path point has exactly two neighbors represented as path cells with the same number.
+$$
+\begin{align*}
+\forall k \in \{1, \dots, K\} : \forall i, j : p_{-k,i,j} \Rightarrow \bigvee_{(i',j') \in \text{neighbours}(i,j)}{p_{k,i',j'}} \\
+\forall k \in \{1, \dots, K\} : \forall i, j : p_{-k,i,j} \Rightarrow \bigwedge_{(i_1,j_1) \neq (i_2,j_2) \in \text{neighbours}(i,j)}{\neg p_{k,i_1,j_1} \land \neg p_{k,i_2,j_2}}
+\end{align*}
+$$
+
+5. Each path point has exactly two neighbors with the same number, which can be represented either as an end point or path cell.
 Thus, we prohibit to have more or less than two neighbor with the same number, but there are no limitations for neighbors with different numbers.
 This condition says that each path cell is connected to exactly two other path cells, so the path neither branches nor breaks.
+It's described by three conditions: if there is a path cell, then there are at least two and at most two neighbours with the same number.
+
+$$
+\begin{align*}
+\forall k \in \{1, \dots, K\} : \forall i, j : p_{k,i,j} \Rightarrow \\
+\bigvee_{(i_1,j_1) \neq (i_2,j_2) \in \text{neighbours}(i,j)}(
+p_{k,i_1,j_1} \land p_{k,i_2,j_2}) \\
+\lor (p_{-k,i_1,j_1} \land p_{k,i_2,j_2}) \\
+\lor (p_{-k,i_1,j_1} \land p_{-k,i_2,j_2})
+\end{align*}
+$$
+
+$$
+\begin{align*}
+\forall k \in \{1, \dots, K\} : \forall i, j : p_{k,i,j} \Rightarrow \\
+\bigwedge_{(i_1,j_1) \neq (i_2,j_2) \neq (i_3, j_3) \neq (i_1, j_1) \in \text{neighbours}(i,j)}(
+\neg p_{k,i_1,j_1} \land \neg p_{k,i_2,j_2} \land \neg p_{k,i_3,j_3}) \\
+\land (\neg p_{-k,i_1,j_1} \land \neg p_{k,i_2,j_2} \land \neg p_{k,i_3,j_3}) \\
+\land (\neg p_{-k,i_1,j_1} \land \neg p_{-k,i_2,j_2} \land \neg p_{k,i_3,j_3}) \\
+\land (\neg p_{-k,i_1,j_1} \land \neg p_{-k,i_2,j_2} \land \neg p_{-k,i_3,j_3})
+\end{align*}
+$$
 
 ## Installation
 

@@ -99,7 +99,7 @@ $$
 \bigwedge_{i,j}{\neg p_{0,i,j}}
 $$
 
-3. Input data are not changed.
+3. Input data do not change.
 
 $$
 \forall i,j; k \in \{1, \dots, K\} : p_{-k, i, j} \iff \text{cell $(i, j)$ has input value $k$} \\

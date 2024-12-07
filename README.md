@@ -121,8 +121,8 @@ $$
 \end{align*}
 $$
 
-4. Each end point has exactly one neighbor represented as path cell with the same number.
-Thus, we prohibit having more or less than one neighbor with the same number, but there are no limitations for neighbors with different numbers.
+4. Each end point has exactly one neighbour represented as path cell with the same number.
+Thus, we prohibit having more or less than one neighbour with the same number, but there are no limitations for neighbours with different numbers.
 This condition states that from each end point there is exactly one path.
 It's described by two conditions: if there is an end point, then there is at least one and at most one path cell with the same number.
 
@@ -133,8 +133,8 @@ $$
 \end{align*}
 $$
 
-5. Each path point has exactly two neighbors with the same number, which can be represented either as an end point or path cell.
-Thus, we prohibit having more or less than two neighbor with the same number, but there are no limitations for neighbors with different numbers.
+5. Each path point has exactly two neighbours with the same number, which can be represented either as an end point or path cell.
+Thus, we prohibit having more or less than two neighbour with the same number, but there are no limitations for neighbours with different numbers.
 This condition states that each path cell is connected to exactly two other path cells, so the path neither branches nor breaks.
 It's described by three conditions: if there is a path cell, then there are at least two and at most two neighbours with the same number.
 

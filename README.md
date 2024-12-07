@@ -17,7 +17,7 @@ The provided Python code encodes, solves, and decodes the numberlink puzzle via 
 
 ## Problem description
 
-Here is a [link](https://en.wikipedia.org/wiki/Numberlink) to game description.
+Here is a [link](https://en.wikipedia.org/wiki/Numberlink) to the game description.
 
 The player has to pair up all the matching numbers on the grid with single continuous lines (or paths). The lines cannot branch off or cross over each other, and the numbers have to fall at the end of each line (i.e., not in the middle).
 
@@ -27,13 +27,14 @@ The field is an $N \times M$ grid. In the cells there are situated $K$ pairs of 
 
 ### Input file format
 
-Input file is a normal text file. It represents a puzzle field to be solved.
+The input file is a normal text file representing a puzzle field to be solved.
 
-The first row has the only number $K$. The second row has numbers $N$ and $M$, that represent number of rows and columns respectively, separated with a whitespace.
+The first row contains the number $K$.
+The second row contains the numbers $N$ and $M$, representing number of rows and columns respectively, separated by a whitespace.
 
-Next $N$ rows consist of $M$ elements each. An element represents a specific cell.
-If there's a number in the game field, we copy it in the cell.
-If there's an empty cell, we use a dot ('.') symbol instead.
+The next $N$ rows consist of $M$ elements each, where each element represents a specific cell.
+If there is a number in the game field, it is copied into the cell.
+If there is an empty cell, a dot ('.') symbol is used instead.
 
 #### Example of input file
 
@@ -51,13 +52,13 @@ If there's an empty cell, we use a dot ('.') symbol instead.
 
 ### Result file format
 
-Result file is a normal text file. It represents a solved puzzle.
+The result file is a normal text file representing a solved puzzle.
 
-It consists of two parts. The first part is a matrix of numbers. The second part is a matrix of paths between nodes, that represents the solved puzzle.
+It consists of two parts: the first part is a matrix of numbers, and the second part is a matrix of paths between nodes representing the solved puzzle.
 
-Each part consists of $N$ rows, each with $M$ elements. An element represents a specific cell. Elements are separated with whitespaces.
+Each part consists of $N$ rows, each with $M$ elements. Each element represents a specific cell, and elements are separated by whitespaces.
 
-Each cell is a number from $1$ to $K$, which for the first part represents either cell of a path corresponding to specific number or an end point of a path and for the second part represents either an end point or path cell.
+Each cell is a number from $1$ to $K$. In the first part, it represents either a cell of a path corresponding to a specific number or an end point of a path. In the second part, it represents either an end point or a path cell.
 
 #### Example of result file
 
@@ -81,37 +82,37 @@ Each cell is a number from $1$ to $K$, which for the first part represents eithe
 
 ## Encoding
 
-The problem is encoded using one set of variables.
-Variables $P(k, i, j)$ represents whether at position $(i, j)$ is number $k$.
+The problem is encoded using a single set of variables.
+Variables $p_{k,i,j}$ represents whether the number $k$ is at position $(i, j)$.
 Specifically, $i \in \{1, \dots, N\}$, $j \in \{1, \dots, M\}$ and $k \in \{-K, \dots, -1, 0, 1, \dots, K\}$.
 
-Coordinates $(i, j)$ represents usual matrix coordinates, so $i$ goes top to bottom and $j$ goes left-to-right.
+Coordinates $(i, j)$ represent usual matrix coordinates, so $i$ goes top to bottom and $j$ goes from left to right.
 
-If $k < 0$ (let $k = -c$), then it represents end point number $-k$ (here $c$).
-E.g. variable $P(-3, 1, 2)$ represents the fact, that on position $(1, 2)$ there is end point number $3$.
+If $k < 0$ (let $k = -c$), then it represents the end point number $-k$ (here $c$).
+E.g. variable $p_{-3,1,2}$ represents the fact that at position $(1, 2)$ there is end point number $3$.
 
 If $k > 0$, then it represents path cell with number $k$.
-E.g. variable $P(3, 1, 2)$ represents the fact, that on position $(1, 2)$ there is path cell with number $3$.
+E.g. variable $p{3,1,2}$ represents the fact that at position $(1, 2)$ there is path cell with number $3$.
 
 If $k = 0$, then it represents empty cell.
-E.g. variable $P(0, 1, 2)$ represents the fact, that on position $(1, 2)$ there is an empty cell.
+E.g. variable $p{0,1,2}$ represents the fact that at position $(1, 2)$ there is an empty cell.
 
 ### Axioms
 
-1. Each cell has exactly one label (number), i.e. from $-K$ to $K$.
+1. Each cell has exactly one label (number), i.e., from $-K$ to $K$.
 
 $$
 \forall i, j : \bigvee_{k}{p_{k,i,j}} \\
 \forall i, j : \bigwedge_{k_1 \neq k_2}{\neg p_{k_1,i,j} \lor \neg p_{k_2,i,j}}
 $$
 
-2. There is no cells with $0$. This actually means that all cells should be filled.
+2. There are no cells with $0$. This means that all cells should be filled.
 
 $$
 \bigwedge_{i,j}{\neg p_{0,i,j}}
 $$
 
-3. Input data do not change.
+3. The input data do not change.
 
 $$
 \begin{align*}
@@ -121,8 +122,8 @@ $$
 $$
 
 4. Each end point has exactly one neighbor represented as path cell with the same number.
-Thus, we prohibit to have more or less than one neighbor with the same number, but there are no limitations for neighbors with different numbers.
-This condition says that from each end point there is exactly one path.
+Thus, we prohibit having more or less than one neighbor with the same number, but there are no limitations for neighbors with different numbers.
+This condition states that from each end point there is exactly one path.
 It's described by two conditions: if there is an end point, then there is at least one and at most one path cell with the same number.
 
 $$
@@ -133,8 +134,8 @@ $$
 $$
 
 5. Each path point has exactly two neighbors with the same number, which can be represented either as an end point or path cell.
-Thus, we prohibit to have more or less than two neighbor with the same number, but there are no limitations for neighbors with different numbers.
-This condition says that each path cell is connected to exactly two other path cells, so the path neither branches nor breaks.
+Thus, we prohibit having more or less than two neighbor with the same number, but there are no limitations for neighbors with different numbers.
+This condition states that each path cell is connected to exactly two other path cells, so the path neither branches nor breaks.
 It's described by three conditions: if there is a path cell, then there are at least two and at most two neighbours with the same number.
 
 $$
@@ -160,27 +161,28 @@ $$
 
 ## Installation
 
-The SAT solver used is [Glucose](https://www.labri.fr/perso/lsimon/research/glucose/), more specifically [Glucose 4.2.1](https://github.com/audemard/glucose/releases/tag/4.2.1). The source code is compiled using
+The SAT solver used is [Glucose](https://www.labri.fr/perso/lsimon/research/glucose/), specifically [Glucose 4.2.1](https://github.com/audemard/glucose/releases/tag/4.2.1).
+The source code can be compiled using the following commands:
 
 ```bash
 cmake .
 make
 ```
 
-This example contains a compiled UNIX binary of the Glucose solver.
-For optimal experience, I encourage the user to compile the SAT solver themselves.
-Note that the solver, as well as the Python script, are assumed to work on UNIX-based systems.
-In case you prefer using Windows, I recommend to use WSL.
+This example includes a compiled UNIX binary of the Glucose solver.
+For the best experience, it is recommended that users compile the SAT solver themselves.
+Note that the solver and the Python script are assumed to work on UNIX-based systems.
+If you prefer using Windows, it is recommended to use WSL.
 
 ## User documentation
 
-Basic usage:
+Basic usage example:
 
 ```bash
 numberlink.py [-h] [-i INPUT] [-o OUTPUT] [-r RESULT] [-s SOLVER] [-v {0,1}]
 ```
 
-Command-line options:
+Available command-line options:
 
 - `-h`, `--help` : Show a help message.
 - `-i INPUT`, `--input INPUT` : An instance file. Default: "input.in".
@@ -191,13 +193,13 @@ Command-line options:
 
 ## Example instances
 
-- `input-7by7.in` : A $7 \times 7$ easy-solvable instance.
-- `input-13by13.in` : A $13 \times 13$ medium-solvable instance.
-- `input-10by40.in` : A $10 \times 40$ hardly solvable instance.
-- `input-20by20.in` : A $20 \times 20$ hardly solvable instance.
-- `input-20by20-many-nodes.in` : A $20 \times 20$ hardly solvable instance with relatively big $K$.
-- `input-30by30.in` : A $30 \times 30$ extremely hard solvable instance, not computable in adequate time.
-- `input-40by40.in` : A $40 \times 40$ extremely hard solvable instance, not computable in adequate time.
+- `input-7by7.in` : A $7 \times 7$ easily solvable instance.
+- `input-13by13.in` : A $13 \times 13$ moderately solvable instance.
+- `input-10by40.in` : A $10 \times 40$ difficult-to-solve instance.
+- `input-20by20.in` : A $20 \times 20$ difficult-to-solve instance.
+- `input-20by20-many-nodes.in` : A $20 \times 20$ difficult-to-solve instance with a relatively large $K$.
+- `input-30by30.in` : A $30 \times 30$ extremely difficult-to-solve instance, not computable in an adequate time.
+- `input-40by40.in` : A $40 \times 40$ extremely difficult-to-solve instance, not computable in an adequate time.
 
 ## License
 

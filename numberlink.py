@@ -125,9 +125,13 @@ def generate_exactly_one_true_for_path(i: int, j: int, k: int, sides: list[int] 
 
     neighbours = get_neighbours(i, j)
 
+    # Current path cell
     C = encode_var(k, i, j)
 
+    # Neighbour end points
     Ks = [encode_var(-k, *neighbours[side - 1]) for side in sides]
+
+    # Neighbour path cells
     Cs = [encode_var(k, *neighbours[side - 1]) for side in sides]
 
     # At least one is true

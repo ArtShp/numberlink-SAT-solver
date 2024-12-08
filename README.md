@@ -212,7 +212,7 @@ In the `instances/results` directory the results of the solved instances are pre
 
 ## Experiments
 
-The experiments were run on Intel Core i7-12700H CPU (2.30 GHz, up to 4.70 Ghz) and 8 GB RAM on Ubuntu inside WSL2 (Windows 11).
+The experiments were run on Intel Core i7-12700H CPU (2.30 GHz, up to 4.70 GHz) and 8 GB RAM on Ubuntu inside WSL2 (Windows 11).
 
 | Instance    | Time (s) |
 |-------------|----------|

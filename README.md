@@ -92,10 +92,10 @@ If $k < 0$ (let $k = -c$), then it represents the end point number $-k$ (here $c
 E.g. variable $p_{-3,1,2}$ represents the fact that at position $(1, 2)$ there is end point number $3$.
 
 If $k > 0$, then it represents path cell with number $k$.
-E.g. variable $p{3,1,2}$ represents the fact that at position $(1, 2)$ there is path cell with number $3$.
+E.g. variable $p_{3,1,2}$ represents the fact that at position $(1, 2)$ there is path cell with number $3$.
 
 If $k = 0$, then it represents empty cell.
-E.g. variable $p{0,1,2}$ represents the fact that at position $(1, 2)$ there is an empty cell.
+E.g. variable $p_{0,1,2}$ represents the fact that at position $(1, 2)$ there is an empty cell.
 
 ### Axioms
 

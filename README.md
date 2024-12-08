@@ -193,6 +193,8 @@ Available command-line options:
 
 ## Example instances
 
+In the `instances` directory there are several example instances:
+
 - `input-7by7.in` : A $7 \times 7$ easily solvable instance.
 - `input-7by7-unsat.in` : A $7 \times 7$ easy unsolvable instance.
 - `input-13by13.in` : A $13 \times 13$ moderately solvable instance.
@@ -202,6 +204,8 @@ Available command-line options:
 - `input-20by20-many-nodes.in` : A $20 \times 20$ difficult-to-solve instance with a relatively large $K$.
 - `input-30by30.in` : A $30 \times 30$ extremely difficult-to-solve instance, not computable in an adequate time.
 - `input-40by40.in` : A $40 \times 40$ extremely difficult-to-solve instance, not computable in an adequate time.
+
+In the `instances/results` directory the results of the solved instances are presented.
 
 ## Experiments
 

@@ -196,6 +196,7 @@ Available command-line options:
 - `input-7by7.in` : A $7 \times 7$ easily solvable instance.
 - `input-7by7-unsat.in` : A $7 \times 7$ easy unsolvable instance.
 - `input-13by13.in` : A $13 \times 13$ moderately solvable instance.
+- `input-13by13-unsat.in` : A $13 \times 13$ moderately unsolvable instance.
 - `input-10by40.in` : A $10 \times 40$ difficult-to-solve instance.
 - `input-20by20.in` : A $20 \times 20$ difficult-to-solve instance.
 - `input-20by20-many-nodes.in` : A $20 \times 20$ difficult-to-solve instance with a relatively large $K$.

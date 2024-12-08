@@ -1,6 +1,7 @@
 # Numberlink SAT Solver
 
-This is a solution to homework for Propositional and Predicate Logic (NAIL062).
+This is a solution to homework for Propositional and Predicate Logic (NAIL062), UK MFF.
+
 The provided Python code encodes, solves, and decodes the numberlink puzzle via reduction to SAT (i.e. propositional logic formula).
 
 ## Table of Contents

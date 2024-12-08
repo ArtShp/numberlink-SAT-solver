@@ -203,6 +203,24 @@ Available command-line options:
 - `input-30by30.in` : A $30 \times 30$ extremely difficult-to-solve instance, not computable in an adequate time.
 - `input-40by40.in` : A $40 \times 40$ extremely difficult-to-solve instance, not computable in an adequate time.
 
+## Experiments
+
+The experiments were run on Intel Core i7-12700H CPU (2.70 GHz) and 8 GB RAM on Ubuntu inside WSL2 (Windows 11).
+
+| Instance    | Time (s) |
+|-------------|----------|
+| 7x7         | 0.03     |
+| 7x7 unsat   | 0.03     |
+| 10x40       | 2        |
+| 13x13       | 0.07     |
+| 13x13 unsat | 0.055    |
+| 20x20       | 97       |
+| 20x20 many  | 5        |
+| 30x30       | \> 10000 |
+| 40x40       | \> 10000 |
+
+It was discovered that the more nodes (end points) there are, the less time it takes to solve the puzzle.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) file for details.

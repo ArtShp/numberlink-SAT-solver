@@ -204,6 +204,7 @@ In the `instances` directory there are several example instances:
 - `input-20by20.in` : A $20 \times 20$ difficult-to-solve instance.
 - `input-20by20-many-nodes.in` : A $20 \times 20$ difficult-to-solve instance with a relatively large $K$.
 - `input-30by30.in` : A $30 \times 30$ extremely difficult-to-solve instance, not computable in an adequate time.
+- `input-30by30-many-nodes.in` : A $30 \times 30$ moderately solvable instance with a relatively large $K$.
 - `input-40by40.in` : A $40 \times 40$ extremely difficult-to-solve instance, not computable in an adequate time.
 
 In the `instances/results` directory the results of the solved instances are presented.
@@ -222,6 +223,7 @@ The experiments were run on Intel Core i7-12700H CPU (2.70 GHz) and 8 GB RAM on 
 | 20x20       | 97       |
 | 20x20 many  | 5        |
 | 30x30       | \> 10000 |
+| 30x30 many  | 321      |
 | 40x40       | \> 10000 |
 
 It was discovered that the more nodes (end points) there are, the less time it takes to solve the puzzle.

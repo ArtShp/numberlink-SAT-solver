@@ -14,6 +14,7 @@ The provided Python code encodes, solves, and decodes the numberlink puzzle via 
 - [Installation](#installation)
 - [User Documentation](#user-documentation)
 - [Example Instances](#example-instances)
+- [Experiments](#experiments)
 - [License](#license)
 
 ## Problem description

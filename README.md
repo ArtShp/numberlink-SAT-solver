@@ -186,7 +186,7 @@ Available command-line options:
 
 - `-h`, `--help` : Show a help message.
 - `-i INPUT`, `--input INPUT` : An instance file. Default: "input.in".
-- `-o OUTPUT`, `--output OUTPUT` : Output file for the DIMACS format (i.e. the CNF formula).
+- `-o OUTPUT`, `--output OUTPUT` : Output file for the [DIMACS](https://jix.github.io/varisat/manual/0.2.0/formats/dimacs.html) format (i.e. the CNF formula).
 - `-r RESULT`, `--result RESULT` : Solved puzzle file. By default, no result is printed to a file.
 - `-s SOLVER`, `--solver SOLVER` : The SAT solver to be used.
 - `-v {0,1}`, `--verb {0,1}` :  Verbosity of the SAT solver used.

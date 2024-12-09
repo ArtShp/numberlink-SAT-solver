@@ -214,18 +214,18 @@ In the `instances/results` directory the results of the solved instances are pre
 
 The experiments were run on Intel Core i7-12700H CPU (2.30 GHz, up to 4.70 GHz) and 8 GB RAM on Ubuntu inside WSL2 (Windows 11).
 
-| Instance    | Time (s) |
-|-------------|----------|
-| 7x7         | 0.03     |
-| 7x7 unsat   | 0.03     |
-| 10x40       | 2        |
-| 13x13       | 0.07     |
-| 13x13 unsat | 0.055    |
-| 20x20       | 97       |
-| 20x20 many  | 5        |
-| 30x30       | \> 10000 |
-| 30x30 many  | 321      |
-| 40x40       | \> 10000 |
+| Instance         | Time (s) |
+|------------------|----------|
+| 7x7              | 0.03     |
+| 7x7 unsat        | 0.03     |
+| 10x40            | 2        |
+| 13x13            | 0.07     |
+| 13x13 unsat      | 0.055    |
+| 20x20            | 97       |
+| 20x20 many nodes | 5        |
+| 30x30            | \> 10000 |
+| 30x30 many nodes | 321      |
+| 40x40            | \> 10000 |
 
 It was discovered that the more nodes (end points) there are, the less time it takes to solve the puzzle.
 

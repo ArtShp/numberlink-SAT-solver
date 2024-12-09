@@ -229,6 +229,8 @@ The experiments were run on Intel Core i7-12700H CPU (2.30 GHz, up to 4.70 GHz) 
 
 It was discovered that the more nodes (end points) there are, the less time it takes to solve the puzzle.
 
+Normal puzzles bigger than $20 \times 20$ are not computable in an adequate time.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) file for details.
